@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import * as R from 'ramda'
+import { useDrag } from 'react-dnd'
 import './Dice.css'
+
+import { DragItemType } from '../types/dnd'
 
 const Pip = ({pos, of, type}) => {
 	const classes = [
@@ -11,10 +14,21 @@ const Pip = ({pos, of, type}) => {
 	return <div className={classes}></div>
 }
 
-const Dice = ({faces, up}) => {
+const Dice = ({faces, up, id}) => {
 	const {pips, type} = faces[up]
 	const [open, setOpen] = useState(false)
 	const toggleOpen = () => setOpen(!open)
+
+	const [, drag] = useDrag({
+		item: {
+			type: DragItemType.dice,
+			id,
+			up,
+		},
+		begin: () => {
+			setOpen(false)
+		},
+	})
 
 	const renderPips = (pips, type) => R.pipe(
 		R.always(R.range(1, pips + 1)),
@@ -34,7 +48,11 @@ const Dice = ({faces, up}) => {
 		)()
 	}
 
-	return <div className={`dice ${open ? 'dice-open' : ''}`} onClick={toggleOpen}>
+	return <div
+		className={`dice ${open ? 'dice-open' : ''}`}
+		onClick={toggleOpen}
+		ref={drag}
+	>
 		{renderPips(pips, type)}
 
 		{open && renderOtherFaces()}

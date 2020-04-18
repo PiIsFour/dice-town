@@ -18,7 +18,7 @@ const Board = () => {
 		</div>
 		<button onClick={dispatchRoll}>Roll</button>
 		<div className="free-pops">
-			{freePops && freePops.map(({up, pop: {faces, id}}) => <Dice up={up} faces={faces} key={id} />)}
+			{freePops && freePops.map(({up, pop: {faces, id}}) => <Dice up={up} faces={faces} id={id} key={id} />)}
 		</div>
 	</main>
 }

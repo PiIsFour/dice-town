@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
+import { DndProvider } from 'react-dnd'
+import DndBackend from 'react-dnd-html5-backend'
 import './index.css'
 
 import App from './App'
@@ -15,9 +17,11 @@ const store = buildStore({
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>,
+		<DndProvider backend={DndBackend}>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</DndProvider>
 	</React.StrictMode>,
 	document.getElementById('root'),
 )
