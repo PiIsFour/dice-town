@@ -6,8 +6,7 @@ import './index.css'
 
 import App from './App'
 import buildStore from './store/store'
-
-const rootReducer = (state) => ({...{test: 'Hello World'}, ...state})
+import rootReducer from './reducers/rootReducer'
 
 const store = buildStore({
 	rootReducer,
