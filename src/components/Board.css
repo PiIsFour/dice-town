@@ -1,0 +1,16 @@
+.board {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+button {
+	cursor: pointer;
+}
+
+.free-pops {
+	display: flex;
+	justify-content: space-evenly;
+	align-self: stretch;
+}
