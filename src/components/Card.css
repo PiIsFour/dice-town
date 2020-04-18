@@ -1,0 +1,29 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 240px;
+	min-height: 300px;
+	padding: 10px;
+	margin: 10px;
+}
+
+.slots {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.slot {
+	width: 64px;
+	height: 64px;
+	border: 1px dashed black;
+	border-radius: 4px;
+}
