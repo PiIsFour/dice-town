@@ -2,11 +2,6 @@ import React, { useState } from 'react'
 import * as R from 'ramda'
 import './Dice.css'
 
-export const pipType = Object.freeze({
-	work: 'work',
-	live: 'live',
-})
-
 const Pip = ({pos, of, type}) => {
 	const classes = [
 		'pip',
