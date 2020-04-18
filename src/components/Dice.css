@@ -12,6 +12,41 @@
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 	gap: var(--space);
+	position: relative;
+	translate: 0 0;
+	transition: translate 300ms;
+}
+
+.dice-open {
+	visibility: hidden;
+	translate: -5px -5px;
+	z-index: 1;
+}
+
+.dice-ghost {
+	position: absolute;
+	box-shadow: 5px 5px 5px black;
+	visibility: visible;
+}
+
+.dice-ghost0 {
+	bottom: 100%;
+}
+
+.dice-ghost1 {
+	right: 100%;
+}
+
+.dice-ghost3 {
+	left: 100%;
+}
+
+.dice-ghost4 {
+	top: 100%
+}
+
+.dice-ghost5 {
+	left: 200%;
 }
 
 .pip {
@@ -20,6 +55,10 @@
 
 .pip-work {
 	background-color: black;
+}
+
+.pip-live {
+	background-color: darkred;
 }
 
 .pip1of4,

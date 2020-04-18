@@ -11,7 +11,14 @@ function App() {
 				<h1>Dice Town</h1>
 			</header>
 			<main>
-				{R.range(0, 10).map(x => <Dice faces={[{pips: x, type: pipType.work}]} up={0} key={x} />)}
+				{R.range(0, 10).map(x => <Dice faces={[
+					{pips: x, type: pipType.work},
+					{pips: 2, type: pipType.work},
+					{pips: 3, type: pipType.work},
+					{pips: 5, type: pipType.work},
+					{pips: 9, type: pipType.work},
+					{pips: 6, type: pipType.live},
+				]} up={0} key={x} />)}
 			</main>
 		</div>
 	)
