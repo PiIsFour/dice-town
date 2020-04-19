@@ -48,6 +48,9 @@ const moveRollToSlot = ({diceId, cardId, slot}) => board => {
 		|| findRollInCards(diceId)(board.cards)
 	const card = findCard(cardId)(board.cards)
 	const previusRoll = card.slots[slot].selectedRoll
+	if(previusRoll === roll){
+		return board
+	}
 	return R.evolve({
 		freePops: R.pipe(
 			removeRollFromFreePops(diceId),
