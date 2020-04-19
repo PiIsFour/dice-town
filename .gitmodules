@@ -1,0 +1,4 @@
+[submodule "build"]
+	path = build
+	url = https://github.com/PiIsFour/dice-town.git
+	branch = gh-pages
