@@ -1,5 +1,6 @@
 {
   "name": "dice-town",
+  "homepage": "https://piisfour.github.io/dice-town/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
