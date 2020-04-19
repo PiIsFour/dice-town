@@ -10,3 +10,8 @@ export const moveRollToSlot = ({diceId, cardId, slot}) => ({
 	cardId,
 	slot,
 })
+
+export const returnRoll = diceId => ({
+	type: ActionType.returnRoll,
+	diceId,
+})

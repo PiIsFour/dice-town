@@ -68,6 +68,17 @@ const moveRollToSlot = ({diceId, cardId, slot}) => board => {
 	})(board)
 }
 
+const returnRoll = diceId => board => {
+	const roll = findRollInCards(diceId)(board.cards)
+	if(!roll){
+		return board
+	}
+	return R.evolve({
+		freePops: R.append(roll),
+		cards: removeRollFromCards(diceId),
+	})(board)
+}
+
 const boardReducer = (rootState = {}, action = {}) => {
 	const { board = initialBoard, pops } = rootState
 	const { type, diceId, cardId, slot } = action
@@ -76,6 +87,8 @@ const boardReducer = (rootState = {}, action = {}) => {
 		return roll(board, pops)
 	case ActionType.moveRollToSlot:
 		return moveRollToSlot({diceId, cardId, slot})(board)
+	case ActionType.returnRoll:
+		return returnRoll(diceId)(board)
 	default:
 		return board
 	}
