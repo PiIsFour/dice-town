@@ -24,6 +24,8 @@ const Dice = ({faces, up, id}) => {
 			type: DragItemType.dice,
 			id,
 			up,
+			pips,
+			pipsType: type,
 		},
 		begin: () => {
 			setOpen(false)
@@ -42,7 +44,7 @@ const Dice = ({faces, up, id}) => {
 			R.filter(x => x !== up),
 			R.insert(2, up),
 			R.map(i => faces[i]),
-			mapIndexed((face, index) => <div className={`dice dice-ghost dice-ghost${index}`}>
+			mapIndexed((face, index) => <div className={`dice dice-ghost dice-ghost${index}`} key={index}>
 				{face && renderPips(face.pips, face.type)}
 			</div>),
 		)()

@@ -22,8 +22,9 @@
 }
 
 .slot {
-	width: 64px;
-	height: 64px;
+	--size: 66px;
+	width: var(--size);
+	height: var(--size);
 	border: 1px dashed black;
 	border-radius: 4px;
 }

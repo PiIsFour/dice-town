@@ -13,4 +13,9 @@ button {
 	display: flex;
 	justify-content: space-evenly;
 	align-self: stretch;
+	padding: 10px 0;
+	margin: 10px 0;
+	border: 1px solid gray;
+	border-radius: 10px;
+	min-height: 86px;
 }
