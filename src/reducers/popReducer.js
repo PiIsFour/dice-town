@@ -36,6 +36,7 @@ const createChild = () => {
 const initialPops = [
 	createStartingPop(),
 	createStartingPop(),
+	createStartingPop(),
 ]
 
 const updatePips = ({popId, face, pips, pipsType}) => adjustOnCondition(
@@ -50,7 +51,7 @@ const updatePips = ({popId, face, pips, pipsType}) => adjustOnCondition(
 
 const removePop = popId => R.filter(pop => pop.id !== popId)
 
-const addPop = R.append(createChild())
+const addPop = () => R.append(createChild())
 
 const popsReducer = (rootState = {}, action = {}) => {
 	const { pops = initialPops } = rootState
@@ -61,7 +62,7 @@ const popsReducer = (rootState = {}, action = {}) => {
 	case ActionType.removePop:
 		return removePop(popId)(pops)
 	case ActionType.addPop:
-		return addPop(pops)
+		return addPop()(pops)
 	default:
 		return pops
 	}

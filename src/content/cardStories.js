@@ -391,7 +391,7 @@ const cardStories = Object.freeze({
 		title: 'The tools work',
 		description: 'i can show you how',
 		slots: [{
-			requirements: [minWork(2)],
+			requirements: [minWork(1)],
 		}, {
 			requirements: [minWork(1)],
 		}],
