@@ -1,20 +1,14 @@
 import * as R from 'ramda'
-import { uuid } from 'uuidv4'
 
 import { ActionType } from '../types/actions'
 import { BoardActions } from '../types/board'
 import { adjustOnCondition, adjustObjectProp } from './util'
+import { createCard } from '../content/cardStories'
 
 const initialBoard = {
 	nextAction: BoardActions.roll,
 	freePops: [],
-	cards: [{
-		id: uuid(),
-		title: 'Place a citizen',
-		name: 'intro 1',
-		description: 'The dice are your citizens and you can place them after rolling',
-		slots: [{}, {}],
-	}],
+	cards: [createCard('intro 1')],
 }
 
 const roll = (board, pops) => {

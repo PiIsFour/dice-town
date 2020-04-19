@@ -1,0 +1,11 @@
+.requirement {
+
+}
+
+.requirement-fullfilled {
+	color: green;
+}
+
+.requirement-failed {
+	color: red;
+}
