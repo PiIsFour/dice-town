@@ -1,3 +1,15 @@
+# Dice Town
+## My first game for LD
+
+[try it online](https://piisfour.github.io/dice-town/)
+
+it is a bit short and im not sure I got all the bugs, but I hope you have fun anyways.
+
+Thank for giving it a try.
+
+___
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
