@@ -42,3 +42,8 @@ export const removeCard = cardId => ({
 	type: ActionType.removeCard,
 	cardId,
 })
+
+export const addCard = name => ({
+	type: ActionType.addCard,
+	name,
+})

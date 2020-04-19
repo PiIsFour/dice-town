@@ -6,4 +6,5 @@ export const ActionType = Object.freeze({
 	collectAllDiceToRoll: 'COLLECT_ALL_DICE_TO_ROLL',
 
 	removeCard: 'REMOVE_CARD',
+	addCard: 'ADD_CARD',
 })

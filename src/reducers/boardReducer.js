@@ -8,7 +8,9 @@ import { createCard } from '../content/cardStories'
 const initialBoard = {
 	nextAction: BoardActions.roll,
 	freePops: [],
-	cards: [createCard('intro 1')],
+	//FIXME: change back to 'intro 1', just cheating for testing
+	// cards: [createCard('intro 1')],
+	cards: [createCard('intro 2')],
 }
 
 const roll = (board, pops) => {
@@ -48,7 +50,7 @@ const moveRollToSlot = ({diceId, cardId, slot}) => board => {
 		|| findRollInCards(diceId)(board.cards)
 	const card = findCard(cardId)(board.cards)
 	const previusRoll = card.slots[slot].selectedRoll
-	if(previusRoll === roll){
+	if(previusRoll === roll || board.nextAction !== BoardActions.done){
 		return board
 	}
 	return R.evolve({
@@ -67,7 +69,7 @@ const moveRollToSlot = ({diceId, cardId, slot}) => board => {
 
 const returnRoll = diceId => board => {
 	const roll = findRollInCards(diceId)(board.cards)
-	if(!roll){
+	if(!roll || board.nextAction !== BoardActions.done){
 		return board
 	}
 	return R.evolve({
@@ -116,9 +118,13 @@ const removeCard = cardId => R.evolve({
 	cards: R.filter(card => card.id !== cardId),
 })
 
+const addCard = name => R.evolve({
+	cards: R.append(createCard(name)),
+})
+
 const boardReducer = (rootState = {}, action = {}) => {
 	const { board = initialBoard, pops } = rootState
-	const { type, diceId, cardId, slot } = action
+	const { type, diceId, cardId, slot, name } = action
 	switch(type){
 	case ActionType.roll:
 		return roll(board, pops)
@@ -132,6 +138,8 @@ const boardReducer = (rootState = {}, action = {}) => {
 		return collectAllDiceToRoll(board)
 	case ActionType.removeCard:
 		return removeCard(cardId)(board)
+	case ActionType.addCard:
+		return addCard(name)(board)
 	default:
 		return board
 	}
