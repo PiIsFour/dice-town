@@ -30,6 +30,7 @@ const Board = () => {
 		</div>
 		{nextAction === BoardActions.roll && <button onClick={dispatchRoll}>Roll</button>}
 		{nextAction === BoardActions.done && <button onClick={dispatchDone}>Done</button>}
+		{nextAction === BoardActions.resolving && <button disabled>resolving</button>}
 		<div
 			className="free-pops"
 			ref={drop}

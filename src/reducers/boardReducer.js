@@ -98,10 +98,19 @@ const removeRollsIfFailed = R.map(
 
 const removeRollFromFailedCards = board => {
 	return R.evolve({
+		nextAction: () => BoardActions.resolving,
 		freePops: addFailedCardsRolls(board.cards),
 		cards: removeRollsIfFailed,
 	})(board)
 }
+
+const collectAllDiceToRoll = R.evolve({
+	nextAction: () => BoardActions.roll,
+	freePops: () => [],
+	cards: R.map(adjustObjectProp('slots',
+		R.map(adjustObjectProp('selectedRoll', () => undefined)),
+	)),
+})
 
 const boardReducer = (rootState = {}, action = {}) => {
 	const { board = initialBoard, pops } = rootState
@@ -115,6 +124,8 @@ const boardReducer = (rootState = {}, action = {}) => {
 		return returnRoll(diceId)(board)
 	case ActionType.removeRollFromFailedCards:
 		return removeRollFromFailedCards(board)
+	case ActionType.collectAllDiceToRoll:
+		return collectAllDiceToRoll(board)
 	default:
 		return board
 	}
