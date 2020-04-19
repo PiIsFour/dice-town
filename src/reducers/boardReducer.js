@@ -112,6 +112,10 @@ const collectAllDiceToRoll = R.evolve({
 	)),
 })
 
+const removeCard = cardId => R.evolve({
+	cards: R.filter(card => card.id !== cardId),
+})
+
 const boardReducer = (rootState = {}, action = {}) => {
 	const { board = initialBoard, pops } = rootState
 	const { type, diceId, cardId, slot } = action
@@ -126,6 +130,8 @@ const boardReducer = (rootState = {}, action = {}) => {
 		return removeRollFromFailedCards(board)
 	case ActionType.collectAllDiceToRoll:
 		return collectAllDiceToRoll(board)
+	case ActionType.removeCard:
+		return removeCard(cardId)(board)
 	default:
 		return board
 	}

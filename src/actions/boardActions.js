@@ -22,11 +22,6 @@ const removeRollFromFailedCards = () => ({
 	type: ActionType.removeRollFromFailedCards,
 })
 
-const resolveCard = cardId => ({
-	type: ActionType.resolveCard,
-	cardId,
-})
-
 const collectAllDiceToRoll = () => ({
 	type: ActionType.collectAllDiceToRoll,
 })
@@ -37,8 +32,13 @@ export const done = () => async (dispatch, getState) => {
 	await delay(waitTime)
 	const cards = getState().board.cards
 	for(const card of cards){
-		dispatch(resolveCard(card.id))
+		card.resolve(dispatch)
 		await delay(waitTime)
 	}
 	dispatch(collectAllDiceToRoll())
 }
+
+export const removeCard = cardId => ({
+	type: ActionType.removeCard,
+	cardId,
+})
