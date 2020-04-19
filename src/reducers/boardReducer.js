@@ -76,6 +76,33 @@ const returnRoll = diceId => board => {
 	})(board)
 }
 
+const isCardFullfilled = card => R.all(({testCard}) => testCard(card), card.requirements)
+const isCardFailed = R.complement(isCardFullfilled)
+const isNotNill = R.complement(R.isNil)
+const addFailedCardsRolls =cards => R.concat(R.pipe(
+	R.always(cards),
+	R.filter(isCardFailed),
+	R.map(R.prop('slots')),
+	R.flatten,
+	R.filter(R.propSatisfies(isNotNill, 'selectedRoll')),
+	R.map(R.prop('selectedRoll')),
+)())
+const removeRollsIfFailed = R.map(
+	R.when(
+		isCardFailed,
+		adjustObjectProp('slots',
+			R.map(adjustObjectProp('selectedRoll', () => undefined)),
+		),
+	),
+)
+
+const removeRollFromFailedCards = board => {
+	return R.evolve({
+		freePops: addFailedCardsRolls(board.cards),
+		cards: removeRollsIfFailed,
+	})(board)
+}
+
 const boardReducer = (rootState = {}, action = {}) => {
 	const { board = initialBoard, pops } = rootState
 	const { type, diceId, cardId, slot } = action
@@ -86,6 +113,8 @@ const boardReducer = (rootState = {}, action = {}) => {
 		return moveRollToSlot({diceId, cardId, slot})(board)
 	case ActionType.returnRoll:
 		return returnRoll(diceId)(board)
+	case ActionType.removeRollFromFailedCards:
+		return removeRollFromFailedCards(board)
 	default:
 		return board
 	}

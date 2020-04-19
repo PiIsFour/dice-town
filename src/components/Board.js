@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useDrop } from 'react-dnd'
 import './Board.css'
 
-import { roll, returnRoll } from '../actions/boardActions'
+import { roll, done, returnRoll } from '../actions/boardActions'
+import { BoardActions } from '../types/board'
 import { DragItemType } from '../types/dnd'
 import Dice from './Dice'
 import Card from './Card'
@@ -12,8 +13,10 @@ import Card from './Card'
 const Board = () => {
 	const freePops = useSelector(R.path(['board', 'freePops']))
 	const cards = useSelector(R.path(['board', 'cards']))
+	const nextAction = useSelector(R.path(['board', 'nextAction']))
 	const dispatch = useDispatch()
 	const dispatchRoll = () => dispatch(roll())
+	const dispatchDone = () => dispatch(done())
 	const onReturn = item => dispatch(returnRoll(item.id))
 
 	const [, drop] = useDrop({
@@ -25,7 +28,8 @@ const Board = () => {
 		<div className="cards">
 			{cards && cards.map(c => <Card {...c} key={c.id} />)}
 		</div>
-		<button onClick={dispatchRoll}>Roll</button>
+		{nextAction === BoardActions.roll && <button onClick={dispatchRoll}>Roll</button>}
+		{nextAction === BoardActions.done && <button onClick={dispatchDone}>Done</button>}
 		<div
 			className="free-pops"
 			ref={drop}

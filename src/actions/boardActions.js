@@ -15,3 +15,14 @@ export const returnRoll = diceId => ({
 	type: ActionType.returnRoll,
 	diceId,
 })
+
+const delay = time => new Promise(resolve => setTimeout(resolve, time))
+
+const removeRollFromFailedCards = () => ({
+	type: ActionType.removeRollFromFailedCards,
+})
+
+export const done = () => async dispatch => {
+	dispatch(removeRollFromFailedCards())
+	await delay(1000)
+}
