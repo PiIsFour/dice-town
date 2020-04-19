@@ -4,9 +4,11 @@ import './Requirement.css'
 const Requirement = ({description, card, testCard}) => {
 	const classes = [
 		'requirement',
-		testCard(card) ? 'requirement-fullfilled' : 'requirement-failed',
-	].join(' ')
-	return <p className={classes}>{description}</p>
+	]
+	if(testCard && card){
+		classes.push(testCard(card) ? 'requirement-fullfilled' : 'requirement-failed')
+	}
+	return <p className={classes.join(' ')}>{description}</p>
 }
 
 export default Requirement

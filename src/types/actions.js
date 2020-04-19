@@ -7,4 +7,7 @@ export const ActionType = Object.freeze({
 
 	removeCard: 'REMOVE_CARD',
 	addCard: 'ADD_CARD',
+
+	updatePips: 'UPDATE_PIPS',
+	removePop: 'REMOVE_POP',
 })

@@ -28,3 +28,27 @@ export const minWorkCount = min => ({
 		diceCount => diceCount >= min,
 	),
 })
+
+export const maxLife = max => ({
+	description: `max ${max} life`,
+	testItem: ({pips, pipsType}) => pipsType === PipType.life && pips <= max,
+	testRoll: function({up, pop: { faces }}) {
+		const upside = faces[up]
+		return this.testItem({pips: upside.pips, pipsType: upside.type})
+	},
+})
+
+export const minLife = min => ({
+	description: `min ${min} life`,
+	testItem: ({pips, pipsType}) => pipsType === PipType.life && pips >= min,
+	testRoll: function({up, pop: { faces }}) {
+		const upside = faces[up]
+		return this.testItem({pips: upside.pips, pipsType: upside.type})
+	},
+})
+
+export const pullsText = () => ({
+	description: 'pulls',
+	testItem: () => true,
+	testRoll: () => true,
+})

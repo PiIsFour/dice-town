@@ -4,11 +4,12 @@ export const roll = () => ({
 	type: ActionType.roll,
 })
 
-export const moveRollToSlot = ({diceId, cardId, slot}) => ({
+export const moveRollToSlot = ({diceId, cardId, slot, force=false}) => ({
 	type: ActionType.moveRollToSlot,
 	diceId,
 	cardId,
 	slot,
+	force,
 })
 
 export const returnRoll = diceId => ({
@@ -27,12 +28,12 @@ const collectAllDiceToRoll = () => ({
 })
 
 export const done = () => async (dispatch, getState) => {
-	const waitTime = 1000
+	const waitTime = 500
 	dispatch(removeRollFromFailedCards())
 	await delay(waitTime)
-	const cards = getState().board.cards
+	const { cards, freePops } = getState().board
 	for(const card of cards){
-		card.resolve(dispatch)
+		await card.resolve(dispatch, freePops)
 		await delay(waitTime)
 	}
 	dispatch(collectAllDiceToRoll())

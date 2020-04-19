@@ -45,12 +45,12 @@ const removeRollFromCards = diceId => adjustOnCondition(
 	)),
 )
 
-const moveRollToSlot = ({diceId, cardId, slot}) => board => {
+const moveRollToSlot = ({diceId, cardId, slot, force}) => board => {
 	const roll = findRollInFreePop(diceId)(board.freePops)
 		|| findRollInCards(diceId)(board.cards)
 	const card = findCard(cardId)(board.cards)
 	const previusRoll = card.slots[slot].selectedRoll
-	if(previusRoll === roll || board.nextAction !== BoardActions.done){
+	if(previusRoll === roll || (board.nextAction !== BoardActions.done && !force)){
 		return board
 	}
 	return R.evolve({
@@ -122,14 +122,32 @@ const addCard = name => R.evolve({
 	cards: R.append(createCard(name)),
 })
 
+const updatePips = ({popId, face, pips, pipsType}) => R.evolve({
+	cards: R.map(adjustObjectProp('slots',
+		adjustOnCondition(
+			slot => slot.selectedRoll && slot.selectedRoll.pop.id === popId,
+			adjustObjectProp('selectedRoll',
+				adjustObjectProp('pop',
+					adjustObjectProp('faces',
+						R.update(face, {
+							pips,
+							type: pipsType,
+						}),
+					),
+				),
+			),
+		),
+	)),
+})
+
 const boardReducer = (rootState = {}, action = {}) => {
 	const { board = initialBoard, pops } = rootState
-	const { type, diceId, cardId, slot, name } = action
+	const { type, diceId, cardId, slot, name, force, popId, face, pips, pipsType } = action
 	switch(type){
 	case ActionType.roll:
 		return roll(board, pops)
 	case ActionType.moveRollToSlot:
-		return moveRollToSlot({diceId, cardId, slot})(board)
+		return moveRollToSlot({diceId, cardId, slot, force})(board)
 	case ActionType.returnRoll:
 		return returnRoll(diceId)(board)
 	case ActionType.removeRollFromFailedCards:
@@ -140,6 +158,8 @@ const boardReducer = (rootState = {}, action = {}) => {
 		return removeCard(cardId)(board)
 	case ActionType.addCard:
 		return addCard(name)(board)
+	case ActionType.updatePips:
+		return updatePips({popId, face, pips, pipsType})(board)
 	default:
 		return board
 	}
