@@ -29,6 +29,15 @@ export const minWorkCount = min => ({
 	),
 })
 
+export const minWork = min => ({
+	description: `min ${min} work`,
+	testItem: ({pips, pipsType}) => pipsType === PipType.work && pips >= min,
+	testRoll: function({up, pop: { faces }}) {
+		const upside = faces[up]
+		return this.testItem({pips: upside.pips, pipsType: upside.type})
+	},
+})
+
 export const maxLife = max => ({
 	description: `max ${max} life`,
 	testItem: ({pips, pipsType}) => pipsType === PipType.life && pips <= max,

@@ -13,8 +13,22 @@ const createStartingPop = () => {
 			{pips: 0, type: PipType.work},
 			{pips: 1, type: PipType.work},
 			{pips: 1, type: PipType.work},
-			{pips: 1, type: PipType.life},
-			{pips: 1, type: PipType.life},
+			{pips: 1, type: PipType.work},
+			{pips: 6, type: PipType.life},
+		],
+	}
+}
+
+const createChild = () => {
+	return {
+		id: uuid(),
+		faces: [
+			{pips: 0, type: PipType.work},
+			{pips: 0, type: PipType.work},
+			{pips: 0, type: PipType.work},
+			{pips: 0, type: PipType.work},
+			{pips: 0, type: PipType.work},
+			{pips: 6, type: PipType.life},
 		],
 	}
 }
@@ -36,6 +50,8 @@ const updatePips = ({popId, face, pips, pipsType}) => adjustOnCondition(
 
 const removePop = popId => R.filter(pop => pop.id !== popId)
 
+const addPop = R.append(createChild())
+
 const popsReducer = (rootState = {}, action = {}) => {
 	const { pops = initialPops } = rootState
 	const { type, popId, face, pips, pipsType } = action
@@ -44,6 +60,8 @@ const popsReducer = (rootState = {}, action = {}) => {
 		return updatePips({popId, face, pips, pipsType})(pops)
 	case ActionType.removePop:
 		return removePop(popId)(pops)
+	case ActionType.addPop:
+		return addPop(pops)
 	default:
 		return pops
 	}

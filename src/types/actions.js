@@ -10,4 +10,5 @@ export const ActionType = Object.freeze({
 
 	updatePips: 'UPDATE_PIPS',
 	removePop: 'REMOVE_POP',
+	addPop: 'ADD_POP',
 })

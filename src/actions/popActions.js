@@ -12,3 +12,7 @@ export const removePop = popId => ({
 	type: ActionType.removePop,
 	popId,
 })
+
+export const addPop = () => ({
+	type: ActionType.addPop,
+})

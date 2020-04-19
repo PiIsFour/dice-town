@@ -8,9 +8,7 @@ import { createCard } from '../content/cardStories'
 const initialBoard = {
 	nextAction: BoardActions.roll,
 	freePops: [],
-	//FIXME: change back to 'intro 1', just cheating for testing
-	// cards: [createCard('intro 1')],
-	cards: [createCard('intro 2')],
+	cards: [createCard('intro 1')],
 }
 
 const roll = (board, pops) => {
